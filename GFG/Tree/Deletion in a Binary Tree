@@ -1,0 +1,82 @@
+int lastnode(struct Node* root){
+    
+    queue<struct Node *>q;
+    struct Node* temp;
+    q.push(root);
+    while(!q.empty()){
+        
+        temp=q.front();
+        q.pop();
+        if(temp->left)
+        q.push(temp->left);
+        if(temp->right)
+        q.push(temp->right);
+        
+    }
+    return temp->data;
+    
+}
+void removinglastnode(struct Node* root,int key){
+    queue<struct Node*>q;
+    struct Node* temp;
+    q.push(root);
+    while(!q.empty()){
+        
+       temp=q.front();
+        q.pop();
+        if(temp->left&&temp->left->data==key)
+        {
+            temp->left=NULL;
+            return;
+        }
+        if(temp->right&&temp->right->data==key)
+        {
+            temp->right=NULL;
+            return;
+        }
+        if(temp->left)
+        q.push(temp->left);
+        if(temp->right)
+        q.push(temp->right);
+        
+    }
+}
+void find_node_tobe_removed(struct Node* root,int key,int replacekey){
+ 
+    queue<struct Node*>q;
+    struct Node* temp;
+    q.push(root);
+    while(!q.empty()){
+        
+        temp=q.front();
+        q.pop();
+        if(temp->data==key)
+        {
+            temp->data=replacekey;
+            return;
+        }
+        if(temp->data==key)
+        {
+            temp->data=replacekey;
+            return;
+        }
+        if(temp->left)
+        q.push(temp->left);
+        if(temp->right)
+        q.push(temp->right);
+        
+    }   
+}
+// you are required to complete this function
+struct Node* deletionBT(struct Node* root, int key)
+{
+    if(root==NULL)
+    return NULL;
+    else if(root->left==NULL&&root->right==NULL&&root->data==key)
+    return root;
+    int replacekey=lastnode(root);
+    
+    removinglastnode(root,replacekey);
+    find_node_tobe_removed(root,key,replacekey);
+    return root;
+}
