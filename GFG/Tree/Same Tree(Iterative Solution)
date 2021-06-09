@@ -1,0 +1,45 @@
+class Solution {
+public:
+    bool isSameTree(TreeNode* r1, TreeNode* r2) {
+       queue<struct TreeNode*>q1,q2;
+        struct TreeNode* temp;
+        struct TreeNode* curr;
+        if(!r1&&!r2)
+        return true;
+        if((!r1&&r2)||(r1&&!r2))
+        return false;
+        q1.push(r1);
+        q2.push(r2);
+        
+        while(!q1.empty()&&!q2.empty()){
+            temp=q1.front();
+            curr=q2.front();
+            if(temp->val!=curr->val)
+            return false;
+            q1.pop();
+            q2.pop();
+            if(temp->left&&curr->left)
+            {
+                q1.push(temp->left);
+                q2.push(curr->left);
+            }
+            else if((!temp->left&&curr->left)||(temp->left&&!curr->left))
+            return false;
+            
+            if(temp->right&&curr->right)
+            {
+                q1.push(temp->right);
+                q2.push(curr->right);
+            }
+            else if((!temp->right&&curr->right)||(temp->right&&!curr->right))
+            return false;
+            
+            
+        }
+        
+        if(q1.empty()&&q2.empty())
+        return true;
+        else
+         return false;
+    }
+};
