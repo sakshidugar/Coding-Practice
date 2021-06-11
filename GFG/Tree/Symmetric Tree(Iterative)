@@ -1,0 +1,54 @@
+bool Symmetric(Node* r1,Node* r2)
+{
+    queue<struct Node*>q1,q2;
+        struct Node* temp;
+        struct Node* curr;
+        q1.push(r1);
+        q2.push(r2);
+        
+        while(!q1.empty()&&!q2.empty()){
+            temp=q1.front();
+            curr=q2.front();
+            if(temp->data!=curr->data)
+            return false;
+            q1.pop();
+            q2.pop();
+            if(temp->left&&curr->right)
+            {
+                q1.push(temp->left);
+                q2.push(curr->right);
+            }
+            else if((!temp->left&&curr->right)||(temp->left&&!curr->right))
+            return false;
+            
+            if(temp->right&&curr->left)
+            {
+                q1.push(temp->right);
+                q2.push(curr->left);
+            }
+            else if((!temp->right&&curr->left)||(temp->right&&!curr->left))
+            return false;
+            
+            
+        }
+        if(q1.empty()&&q2.empty())
+        return true;
+        else
+        return false;
+}
+// return true/false denoting whether the tree is Symmetric or not
+bool isSymmetric(struct Node* root)
+{
+    bool val;
+	if(root==NULL)
+	return true;
+	else if(!root->left&&!root->right)
+	return true;
+	else if((!root->left&&root->right)||(!root->right&&root->left))
+	return false;
+	else
+	{
+	    return val=Symmetric(root->left,root->right);
+	}
+	
+}
