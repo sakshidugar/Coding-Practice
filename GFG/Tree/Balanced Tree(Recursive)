@@ -1,0 +1,31 @@
+class Solution {
+public:
+ int height(TreeNode *root)
+{
+    if(root==NULL)
+    return 0;
+    
+    int lheight=height(root->left);
+    int rheight=height(root->right);
+    
+    if(lheight>rheight)
+    return (lheight+1);
+    else
+    return (rheight+1);
+}
+bool heightbool(TreeNode *root)
+{
+    int lheight=height(root->left);
+    int rheight=height(root->right);
+    if(lheight-rheight>1||rheight-lheight>1)
+    return false;
+    else
+    return true;
+}
+    bool isBalanced(TreeNode* root) {
+    if(root==NULL)
+    return true;
+    bool value=heightbool(root);
+    return isBalanced(root->left)&&isBalanced(root->right)&&value;
+    }
+};
